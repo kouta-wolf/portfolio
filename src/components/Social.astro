@@ -1,0 +1,25 @@
+---
+const links = [
+	{ label: 'GitHub', href: 'https://github.com/kouta-wolf' },
+	{ label: 'X', href: 'https://x.com/o_kami_code' },
+	{ label: 'Zenn', href: 'https://zenn.dev/ookami_dev' },
+];
+---
+
+<section id="social" class="bg-base min-h-[25vh] flex flex-col items-center justify-center gap-6 text-center">
+	<h2 class="text-3xl font-bold text-letter">Social</h2>
+	<div class="flex flex-row gap-4">
+		{
+			links.map((link) => (
+				<a
+					href={link.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="px-4 py-2 bg-primary text-white rounded hover:opacity-90 transition"
+				>
+					{link.label}
+				</a>
+			))
+		}
+	</div>
+</section>
