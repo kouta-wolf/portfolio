@@ -11,6 +11,7 @@ const projects = defineCollection({
 			githubUrl: z.string().url(),
 			renderUrl: z.string().url(),
 			techStack: z.array(z.string()),
+			order: z.number(),
 		}),
 });
 

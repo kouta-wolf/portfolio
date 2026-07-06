@@ -8,7 +8,7 @@ import Social from '../components/Social.astro';
 import Footer from '../components/Footer.astro';
 import { Portfolio } from '../components/Portfolio';
 
-const projectEntries = await getCollection('projects');
+const projectEntries = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
 const projects = projectEntries.map((entry) => ({
 	slug: entry.id,
 	title: entry.data.title,

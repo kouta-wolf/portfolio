@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 @theme {
-	--color-primary: oklch(0.45 0.143 260); /* 瑠璃紺 #1e50a2 */
-	--color-secondary: oklch(0.5 0.03 260); /* 瑠璃紺と同色相の補助グレー */
-	--color-base: oklch(0.97 0 0); /* 銀白色 #f6f6f6 */
-	--color-letter: oklch(0.12 0.08 264); /* 蒼黒 #000023 */
+    --color-primary: oklch(0.45 0.143 260); /* 瑠璃紺 #1e50a2 */
+    --color-secondary: oklch(
+        0.5 0.01 260
+    ); /* 瑠璃紺と同色相の補助グレー(彩度低めでグレー寄り) */
+    --color-base: oklch(0.97 0 0); /* 銀白色 #f6f6f6 */
+    --color-letter: oklch(0.12 0.08 264); /* 蒼黒 #000023 */
 }
