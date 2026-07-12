@@ -7,4 +7,13 @@
     ); /* 瑠璃紺と同色相の補助グレー(彩度低めでグレー寄り) */
     --color-base: oklch(0.97 0 0); /* 銀白色 #f6f6f6 */
     --color-letter: oklch(0.12 0.08 264); /* 蒼黒 #000023 */
+    --color-accent: oklch(0.78 0.09 220); /* 月光色 #8fc6dd (Heroセクション限定のアクセント) */
+}
+
+@layer utilities {
+    .bg-texture {
+        background-image: var(--bg-texture);
+        background-size: cover;
+        background-position: center;
+    }
 }
