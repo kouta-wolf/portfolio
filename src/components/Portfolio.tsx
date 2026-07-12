@@ -21,7 +21,7 @@ export const Portfolio = ({ projects }: Props) => {
 	return (
 		<section
 			id="portfolio"
-			className="bg-white min-h-[50vh] flex flex-col items-center justify-center gap-6 px-4 py-12 text-center"
+			className="bg-texture bg-primary/10 bg-blend-multiply min-h-[50vh] flex flex-col items-center justify-center gap-6 px-4 py-12 text-center"
 		>
 			<h2 className="text-3xl font-bold text-primary border-b-2 border-primary pb-1 inline-block">Portfolio</h2>
 			<div className="grid grid-cols-1 md:grid-cols-[200px_1fr] w-full max-w-4xl items-start gap-8">
