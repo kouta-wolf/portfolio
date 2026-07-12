@@ -1,11 +1,16 @@
 import { useState } from 'react';
 
+interface DescriptionItem {
+	text: string;
+	url?: string;
+}
+
 interface Project {
 	slug: string;
 	title: string;
-	description: string;
-	githubUrl: string;
-	renderUrl: string;
+	description: string | Array<string | DescriptionItem>;
+	githubUrl?: string;
+	renderUrl?: string;
 	techStack: string[];
 	imageSrc?: string;
 }
@@ -44,7 +49,30 @@ export const Portfolio = ({ projects }: Props) => {
 							{selected.imageSrc && (
 								<img src={selected.imageSrc} alt={selected.title} className="rounded w-full" />
 							)}
-							<p className="text-letter">{selected.description}</p>
+							{Array.isArray(selected.description) ? (
+								<ul className="space-y-2 text-letter leading-relaxed">
+									{selected.description.map((item) => {
+										const { text, url } = typeof item === 'string' ? { text: item, url: undefined } : item;
+										return (
+											<li key={text} className="flex items-center gap-2">
+												<span className="before:content-['・'] before:mr-1">{text}</span>
+												{url && (
+													<a
+														href={url}
+														target="_blank"
+														rel="noopener noreferrer"
+														className="text-xs px-2 py-1 bg-primary text-white rounded hover:opacity-90 transition"
+													>
+														Link
+													</a>
+												)}
+											</li>
+										);
+									})}
+								</ul>
+							) : (
+								<p className="text-letter leading-relaxed">{selected.description}</p>
+							)}
 							<div className="flex flex-wrap gap-2">
 								{selected.techStack.map((tech) => (
 									<span key={tech} className="text-xs px-2 py-1 bg-secondary/40 rounded text-letter">
@@ -53,22 +81,26 @@ export const Portfolio = ({ projects }: Props) => {
 								))}
 							</div>
 							<div className="flex gap-4 pt-2">
-								<a
-									href={selected.githubUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="px-4 py-2 bg-primary text-white rounded hover:opacity-90 transition"
-								>
-									GitHub
-								</a>
-								<a
-									href={selected.renderUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									className="px-4 py-2 bg-primary text-white rounded hover:opacity-90 transition"
-								>
-									Live Demo
-								</a>
+								{selected.githubUrl && (
+									<a
+										href={selected.githubUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="px-4 py-2 bg-primary text-white rounded hover:opacity-90 transition"
+									>
+										GitHub
+									</a>
+								)}
+								{selected.renderUrl && (
+									<a
+										href={selected.renderUrl}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="px-4 py-2 bg-primary text-white rounded hover:opacity-90 transition"
+									>
+										Link
+									</a>
+								)}
 							</div>
 						</div>
 					) : (
