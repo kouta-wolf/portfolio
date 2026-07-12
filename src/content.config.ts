@@ -6,10 +6,13 @@ const projects = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
-			description: z.string(),
+			description: z.union([
+				z.string(),
+				z.array(z.union([z.string(), z.object({ text: z.string(), url: z.string().url().optional() })])),
+			]),
 			image: image().optional(),
-			githubUrl: z.string().url(),
-			renderUrl: z.string().url(),
+			githubUrl: z.string().url().optional(),
+			renderUrl: z.string().url().optional(),
 			techStack: z.array(z.string()),
 			order: z.number(),
 		}),

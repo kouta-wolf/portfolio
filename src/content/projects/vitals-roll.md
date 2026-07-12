@@ -1,10 +1,10 @@
 ---
 title: "vitals-roll"
-description: "ソードワールド2.5用のバフ/デバフ管理ツール。bcdice-apiに対応するコマンドをバフと合わせて自動生成してコピーしてセッションの加速化を狙った"
+description: "ソードワールド2.5用のバフ/デバフ管理ツールです。bcdice-apiに対応するコマンドをバフと合わせて自動生成してコピーしてセッションの加速化を狙う予定です。（鋭意制作中）"
 githubUrl: "https://github.com/kouta-wolf/vitals-roll"
 renderUrl: "https://vitals-roll.onrender.com"
-techStack: ["Ruby on Rails", "Hotwire"]
+techStack: ["Ruby on Rails", "Hotwire", "Render", "Neon"]
 order: 1
 ---
 
-TODO: プロジェクトの本文(Markdown本文)をここに書く。
+プロジェクト本文
