@@ -14,4 +14,12 @@
         background-size: cover;
         background-position: center;
     }
+
+    .paper {
+        background-image: url("../assets/paper-bg.jpg");
+        background-size: cover;
+        background-color: var(--color-paper-bg);
+        background-blend-mode: multiply;
+        color: var(--color-paper-text);
+    }
 }
