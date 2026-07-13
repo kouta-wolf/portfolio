@@ -26,7 +26,7 @@ export const Portfolio = ({ projects }: Props) => {
 	return (
 		<section
 			id="portfolio"
-			className="bg-texture bg-primary/10 bg-blend-multiply min-h-[50vh] flex items-center justify-center"
+			className="bg-primary/10 min-h-[50vh] flex items-center justify-center"
 		>
 			<div className="flex flex-col items-center justify-center gap-6 w-6xl self-stretch px-4 py-12 text-center">
 				<h2 className="text-3xl font-bold text-primary border-b-2 border-primary pb-1 inline-block">Portfolio</h2>
