@@ -1,37 +1,26 @@
 ---
-import { getImage } from 'astro:assets';
 import '../styles/global.css';
 import '@fontsource/zen-old-mincho/400.css';
 import '@fontsource/zen-old-mincho/700.css';
-import backgroundTexture from '../assets/background.jpg';
+import PageTurnHint from '../components/PageTurnHint.astro';
 
 interface Props {
 	title: string;
 }
 
 const { title } = Astro.props;
-
-const optimizedBackground = await getImage({
-	src: backgroundTexture,
-	format: 'webp',
-	quality: 80,
-});
 ---
 
-<html lang="ja">
+<html lang="ja" class="snap-y snap-mandatory">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
-		<style define:vars={{ bgTexture: `url(${optimizedBackground.src})` }}>
-			:root {
-				--bg-texture: var(--bgTexture);
-			}
-		</style>
 	</head>
-	<body>
+	<body class="bg-bg text-text">
 		<slot />
+		<PageTurnHint />
 	</body>
 </html>
