@@ -1,0 +1,49 @@
+---
+import wolfMark from '../assets/icons/wolf-mark.svg';
+---
+
+<div id="loading-screen" class="bg-bg fixed inset-0 z-100 flex">
+	<div
+		id="loading-panel-left"
+		class="bg-bg border-accent/40 flex h-full w-1/2 items-center justify-end border-r transition-transform duration-700 ease-in-out"
+	>
+		<img src={wolfMark.src} width={wolfMark.width} height={wolfMark.height} alt="" class="mr-6 h-12 w-12" />
+	</div>
+	<div
+		id="loading-panel-right"
+		class="bg-bg flex h-full w-1/2 items-center justify-start transition-transform duration-700 ease-in-out"
+	>
+		<span class="font-heading text-accent ml-6 text-2xl tracking-widest">HexWolf</span>
+	</div>
+</div>
+
+<script>
+	const screen = document.getElementById('loading-screen');
+	const left = document.getElementById('loading-panel-left');
+	const right = document.getElementById('loading-panel-right');
+
+	if (screen && left && right) {
+		const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		document.documentElement.style.overflow = 'hidden';
+
+		const open = () => {
+			document.documentElement.style.overflow = '';
+
+			if (prefersReducedMotion) {
+				screen.remove();
+				return;
+			}
+
+			left.style.transform = 'translateX(-100%)';
+			right.style.transform = 'translateX(100%)';
+			screen.addEventListener('transitionend', () => screen.remove(), { once: true });
+		};
+
+		const fallback = setTimeout(open, 2500);
+
+		Promise.race([document.fonts.ready, new Promise((resolve) => setTimeout(resolve, 1500))]).then(() => {
+			clearTimeout(fallback);
+			open();
+		});
+	}
+</script>

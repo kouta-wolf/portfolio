@@ -1,24 +1,18 @@
 ---
 import wolfMark from '../assets/icons/wolf-mark.svg';
+import BookCard from './BookCard.astro';
 ---
 
-<section id="about" class="min-h-screen snap-start flex items-center justify-center">
-	<div class="grid grid-cols-1 md:grid-cols-[1fr_220px] items-start gap-8 w-6xl self-stretch px-4 py-12">
-		<div class="paper max-w-xl mx-auto md:mx-0 rounded-lg p-8 leading-loose">
-			<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第一章 プロフィール</h2>
-			<p class="mt-4">
-				訪問看護を含む看護師として現場に立っていました。ある時、業務で使っていたツールがどうにも使いづらく、見よう見まねでExcelの効率化シートを自作して現場に配っていたのですが、今思えばそれが自分にとって最初の「エンジニアリング」だったのかもしれません。
-			</p>
-			<p class="mt-4">
-				その後、働き方について考え直す出来事があり、思い切って未経験からプログラミングの学習を始めました。中学生の頃から自作PCでずっと遊んできた人間なので、机に向かって長時間手を動かすこと自体はまったく苦になりません(むしろ得意分野です)。
-			</p>
-			<p class="mt-4">
-				現場で感じていた「なんとかしたい」という気持ちを、今はものづくりを通してエンジニアとして形にしていきたいと思っています。
-			</p>
-		</div>
-		<div class="flex flex-col items-center text-center gap-4 text-text">
-			<img src={wolfMark.src} width={wolfMark.width} height={wolfMark.height} alt="" class="w-24 h-24" />
-			<p class="text-sm text-accent">現場から、ものづくりへ。</p>
-		</div>
-	</div>
-</section>
+<BookCard chapterId="about" decorationSrc={wolfMark.src}>
+	<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第一章 プロフィール</h2>
+	<p class="mt-4">
+		訪問看護を含む看護師として現場に立っていました。ある時、業務で使っていたツールがどうにも使いづらく、見よう見まねでExcelの効率化シートを自作して現場に配っていたのですが、今思えばそれが自分にとって最初の「エンジニアリング」だったのかもしれません。
+	</p>
+	<p class="mt-4">
+		その後、働き方について考え直す出来事があり、思い切って未経験からプログラミングの学習を始めました。中学生の頃から自作PCでずっと遊んできた人間なので、机に向かって長時間手を動かすこと自体はまったく苦になりません(むしろ得意分野です)。
+	</p>
+	<p class="mt-4">
+		現場で感じていた「なんとかしたい」という気持ちを、今はものづくりを通してエンジニアとして形にしていきたいと思っています。
+	</p>
+	<p class="mt-8 text-center text-sm text-accent">現場から、ものづくりへ。</p>
+</BookCard>

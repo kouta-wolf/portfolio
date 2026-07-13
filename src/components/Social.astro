@@ -1,4 +1,6 @@
 ---
+import BookCard from './BookCard.astro';
+
 const links = [
 	{ label: 'GitHub', href: 'https://github.com/kouta-wolf' },
 	{ label: 'X', href: 'https://x.com/o_kami_code' },
@@ -6,22 +8,21 @@ const links = [
 ];
 ---
 
-<section id="social" class="min-h-screen snap-start flex items-center justify-center">
-	<div class="flex flex-col items-center justify-center gap-6 w-6xl self-stretch text-center">
-		<h2 class="font-heading text-3xl font-bold text-primary border-b-2 border-primary pb-1 inline-block">第三章 連絡先</h2>
-		<div class="flex flex-row gap-4">
-			{
-				links.map((link) => (
-					<a
-						href={link.href}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="px-4 py-2 bg-primary text-white rounded hover:opacity-90 transition"
-					>
-						{link.label}
-					</a>
-				))
-			}
-		</div>
+<BookCard chapterId="social">
+	<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第三章 連絡先</h2>
+	<p class="mt-4">現場から飛び出して、今はコードで人とつながっています。お気軽にどうぞ。</p>
+	<div class="mt-8 flex flex-col gap-4">
+		{
+			links.map((link) => (
+				<a
+					href={link.href}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="bg-accent text-bg rounded px-4 py-2 text-center transition hover:opacity-90"
+				>
+					{link.label}
+				</a>
+			))
+		}
 	</div>
-</section>
+</BookCard>

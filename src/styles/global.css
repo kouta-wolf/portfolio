@@ -29,4 +29,10 @@
     .font-heading {
         font-family: var(--font-heading);
     }
+
+    .chapter-slide {
+        flex: 0 0 100%;
+        width: 100vw;
+        height: 100dvh;
+    }
 }

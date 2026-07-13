@@ -1,13 +1,11 @@
 ---
 ---
 
-<header class="fixed top-0 left-0 z-50 w-full h-16 bg-base text-letter flex items-center justify-between">
-	<div class="m-6">
-		<a href="#hero" class="sm:text-sm lg:text-2xl font-bold text-primary">HexWolf</a>
-	</div>
-	<div class="hidden lg:flex m-6 space-x-6">
-		<a href="#about">プロフィール</a>
-		<a href="#portfolio">作品集</a>
-		<a href="#social">連絡先</a>
-	</div>
+<header class="fixed top-0 left-0 z-50 m-6 flex flex-col items-start gap-2">
+	<a href="#hero" data-chapter-link="hero" class="font-heading text-accent text-lg font-bold sm:text-xl lg:text-2xl">HexWolf</a>
+	<nav class="text-text hidden gap-4 text-sm lg:flex">
+		<a href="#about" data-chapter-link="about" class="hover:text-accent">プロフィール</a>
+		<a href="#portfolio" data-chapter-link="portfolio" class="hover:text-accent">作品集</a>
+		<a href="#social" data-chapter-link="social" class="hover:text-accent">連絡先</a>
+	</nav>
 </header>
