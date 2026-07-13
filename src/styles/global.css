@@ -6,6 +6,8 @@
     --color-accent: oklch(0.78 0.09 220); /* 月光色 #8fc6dd (リンク/ボタン/見出し/ボーダー) */
     --color-paper-bg: oklch(0.94 0.015 75); /* 生成り/羊皮紙 (本文カラム・カードの背景) */
     --color-paper-text: oklch(0.24 0.02 50); /* 本文用の濃色文字 (紙背景上で使用) */
+
+    --font-heading: "Zen Old Mincho", serif;
 }
 
 @layer utilities {
@@ -21,5 +23,9 @@
         background-color: var(--color-paper-bg);
         background-blend-mode: multiply;
         color: var(--color-paper-text);
+    }
+
+    .font-heading {
+        font-family: var(--font-heading);
     }
 }
