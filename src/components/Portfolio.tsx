@@ -56,7 +56,7 @@ export const Portfolio = ({ projects }: Props) => {
 									className="paper rounded-lg shadow-md p-6 text-left cursor-pointer transition hover:shadow-lg"
 								>
 									<img
-										src={project.imageSrc ?? noImageFallback}
+										src={project.imageSrc ?? noImageFallback.src}
 										alt={project.title}
 										className="rounded w-full aspect-video object-cover mb-4"
 									/>
@@ -87,7 +87,7 @@ export const Portfolio = ({ projects }: Props) => {
 						</button>
 						<div className="space-y-4">
 							<img
-								src={selected.imageSrc ?? noImageFallback}
+								src={selected.imageSrc ?? noImageFallback.src}
 								alt={selected.title}
 								className="rounded w-full aspect-video object-cover"
 							/>
