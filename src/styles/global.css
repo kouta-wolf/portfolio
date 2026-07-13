@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 @theme {
-    --color-primary: oklch(0.45 0.143 260); /* 瑠璃紺 #1e50a2 */
-    --color-secondary: oklch(
-        0.5 0.01 260
-    ); /* 瑠璃紺と同色相の補助グレー(彩度低めでグレー寄り) */
-    --color-base: oklch(0.97 0 0); /* 銀白色 #f6f6f6 */
-    --color-letter: oklch(0.12 0.08 264); /* 蒼黒 #000023 */
-    --color-accent: oklch(0.78 0.09 220); /* 月光色 #8fc6dd (Heroセクション限定のアクセント) */
+    --color-bg: oklch(0.12 0.08 264); /* 蒼黒 #000023 (背景) */
+    --color-text: oklch(0.97 0 0); /* 銀白 #f6f6f6 (文字) */
+    --color-accent: oklch(0.78 0.09 220); /* 月光色 #8fc6dd (リンク/ボタン/見出し/ボーダー) */
+    --color-paper-bg: oklch(0.94 0.015 75); /* 生成り/羊皮紙 (本文カラム・カードの背景) */
+    --color-paper-text: oklch(0.24 0.02 50); /* 本文用の濃色文字 (紙背景上で使用) */
+
+    --font-heading: "Zen Old Mincho", serif;
 }
 
 @layer utilities {
@@ -15,5 +15,17 @@
         background-image: var(--bg-texture);
         background-size: cover;
         background-position: center;
+    }
+
+    .paper {
+        background-image: url("../assets/paper-bg.jpg");
+        background-size: cover;
+        background-color: var(--color-paper-bg);
+        background-blend-mode: multiply;
+        color: var(--color-paper-text);
+    }
+
+    .font-heading {
+        font-family: var(--font-heading);
     }
 }
