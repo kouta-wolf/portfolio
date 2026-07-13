@@ -6,6 +6,7 @@ import Hero from '../components/Hero.astro';
 import About from '../components/About.astro';
 import Social from '../components/Social.astro';
 import Footer from '../components/Footer.astro';
+import TocRibbon from '../components/TocRibbon.astro';
 import { Portfolio } from '../components/Portfolio';
 
 const projectEntries = (await getCollection('projects', ({ data }) => data.featured)).sort(
@@ -24,11 +25,31 @@ const projects = projectEntries.map((entry) => ({
 
 <Layout title="HexWolf Portfolio">
 	<Header />
-	<main>
-		<Hero />
-		<About />
-		<Portfolio client:visible projects={projects} />
-		<Social />
+	<TocRibbon />
+	<main class="h-dvh w-screen overflow-hidden">
+		<div class="flex h-full w-full transition-transform duration-400 ease-in-out" data-chapters-row>
+			<Hero />
+			<About />
+			<Portfolio client:load projects={projects} />
+			<Social />
+		</div>
 	</main>
 	<Footer />
 </Layout>
+
+<script>
+	import { $activeChapterId, $chapters } from '../stores/book';
+
+	const row = document.querySelector<HTMLElement>('[data-chapters-row]');
+
+	const applyRowOffset = () => {
+		if (!row) return;
+		const chapters = $chapters.get();
+		const active = chapters.find((chapter) => chapter.id === $activeChapterId.get());
+		if (!active) return;
+		row.style.transform = `translateX(-${active.order * 100}%)`;
+	};
+
+	$activeChapterId.subscribe(applyRowOffset);
+	applyRowOffset();
+</script>

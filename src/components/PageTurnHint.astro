@@ -3,12 +3,36 @@
 
 <button
 	type="button"
-	aria-label="次のセクションへスクロール"
+	aria-label="次のページへ"
+	data-page-nav="next"
 	class="fixed bottom-6 right-6 z-40 h-12 w-12 cursor-pointer border-0 bg-transparent p-0"
-	onclick="window.scrollBy({ top: window.innerHeight, behavior: 'smooth' })"
 >
 	<span
 		class="block h-full w-full bg-accent/80 shadow-md transition hover:bg-accent"
 		style="clip-path: polygon(100% 0, 100% 100%, 0 100%);"
 	></span>
 </button>
+
+<button
+	type="button"
+	aria-label="前のページへ"
+	data-page-nav="prev"
+	class="fixed bottom-6 left-6 z-40 h-12 w-12 cursor-pointer border-0 bg-transparent p-0"
+>
+	<span
+		class="block h-full w-full bg-accent/80 shadow-md transition hover:bg-accent"
+		style="clip-path: polygon(0 0, 0 100%, 100% 100%);"
+	></span>
+</button>
+
+<script>
+	import { goNext, goPrev } from '../stores/book';
+
+	const guard = (fn: () => void) => () => {
+		if (document.body.dataset.modalOpen === 'true') return;
+		fn();
+	};
+
+	document.querySelector('[data-page-nav="next"]')?.addEventListener('click', guard(goNext));
+	document.querySelector('[data-page-nav="prev"]')?.addEventListener('click', guard(goPrev));
+</script>
