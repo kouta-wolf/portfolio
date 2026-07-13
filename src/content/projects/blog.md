@@ -5,6 +5,7 @@ githubUrl: "https://github.com/kouta-wolf/blog"
 renderUrl: "https://blog.hexwolf.org"
 techStack: ["Astro", "React", "TailwindCSS", "CloudFlare pages"]
 order: 2
+featured: true
 ---
 
 個人用ブログ

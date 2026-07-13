@@ -5,6 +5,7 @@ githubUrl: "https://github.com/kouta-wolf/vitals-roll"
 renderUrl: "https://vitals-roll.onrender.com"
 techStack: ["Ruby on Rails", "Hotwire", "Render", "Neon"]
 order: 1
+featured: true
 ---
 
 プロジェクト本文

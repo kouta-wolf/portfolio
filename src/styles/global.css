@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @theme {
     --color-bg: oklch(0.12 0.08 264); /* 蒼黒 #000023 (背景) */

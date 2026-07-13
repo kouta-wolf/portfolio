@@ -15,6 +15,7 @@ const projects = defineCollection({
 			renderUrl: z.string().url().optional(),
 			techStack: z.array(z.string()),
 			order: z.number(),
+			featured: z.boolean().default(false),
 		}),
 });
 
