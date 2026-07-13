@@ -29,7 +29,7 @@ export const Portfolio = ({ projects }: Props) => {
 			className="bg-primary/10 min-h-screen snap-start flex items-center justify-center"
 		>
 			<div className="flex flex-col items-center justify-center gap-6 w-6xl self-stretch px-4 py-12 text-center">
-				<h2 className="text-3xl font-bold text-primary border-b-2 border-primary pb-1 inline-block">Portfolio</h2>
+				<h2 className="font-heading text-3xl font-bold text-primary border-b-2 border-primary pb-1 inline-block">第二章 作品集</h2>
 				<div className="grid grid-cols-1 md:grid-cols-[200px_1fr] w-full max-w-4xl items-start gap-8">
 					<div className="flex flex-row md:flex-col gap-2 justify-center flex-wrap">
 						{projects.map((project) => (
