@@ -80,7 +80,7 @@ export const Portfolio = ({ projects }: Props) => {
 						key={spread.map((page) => page.map((project) => project.slug).join('+')).join('-')}
 						className="paper relative h-full w-full shrink-0 overflow-hidden rounded-lg shadow-2xl"
 					>
-						<div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-6 -translate-x-1/2 bg-gradient-to-r from-black/15 via-black/25 to-black/15 blur-sm md:block" />
+						<div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-6 -translate-x-1/2 bg-linear-to-r from-black/15 via-black/25 to-black/15 blur-sm md:block" />
 						<div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-black/20 md:block" />
 						<div
 							className="spread-row h-full"
