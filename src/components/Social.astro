@@ -12,9 +12,7 @@ const links = [
 	<Fragment slot="page1">
 		<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第三章 連絡先</h2>
 		<p class="mt-4">現場から飛び出して、今はコードで人とつながっています。お気軽にどうぞ。</p>
-	</Fragment>
-	<Fragment slot="page2">
-		<div class="flex h-full flex-col justify-center gap-4">
+		<div class="mt-8 flex flex-col gap-4">
 			{
 				links.map((link) => (
 					<a
@@ -28,5 +26,36 @@ const links = [
 				))
 			}
 		</div>
+	</Fragment>
+	<Fragment slot="page2">
+		<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1 text-transparent select-none" aria-hidden="true">
+			&nbsp;
+		</h2>
+		<form class="mt-4 flex h-full flex-col gap-4">
+			<div class="flex flex-col gap-1">
+				<label for="contact-email" class="text-sm text-accent">メールアドレス</label>
+				<input
+					id="contact-email"
+					type="email"
+					placeholder="you@example.com"
+					class="border-accent/40 bg-bg/50 rounded border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-accent"
+				/>
+			</div>
+			<div class="flex flex-1 flex-col gap-1">
+				<label for="contact-message" class="text-sm text-accent">内容</label>
+				<textarea
+					id="contact-message"
+					rows="6"
+					placeholder="お問い合わせはまだできません"
+					class="border-accent/40 bg-bg/50 flex-1 resize-none rounded border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-accent"
+				></textarea>
+			</div>
+			<button
+				type="submit"
+				class="bg-accent text-bg rounded px-4 py-2 text-center transition hover:opacity-90"
+			>
+				送信する
+			</button>
+		</form>
 	</Fragment>
 </BookCard>
