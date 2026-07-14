@@ -133,7 +133,10 @@ export const Portfolio = ({ projects }: Props) => {
 				createPortal(
 					<div
 						className="fixed inset-0 z-50 flex items-center justify-center bg-bg/80 p-4 animate-in fade-in duration-200"
-						onClick={() => setOpenSlug(null)}
+						onClick={(event) => {
+							event.stopPropagation();
+							setOpenSlug(null);
+						}}
 					>
 						<div
 							className="paper relative max-w-2xl w-full max-h-[80vh] overflow-y-auto rounded-lg shadow-xl p-8 text-left animate-in fade-in zoom-in-95 duration-300"
@@ -142,8 +145,11 @@ export const Portfolio = ({ projects }: Props) => {
 							<button
 								type="button"
 								aria-label="閉じる"
-								onClick={() => setOpenSlug(null)}
-								className="absolute top-4 right-4 h-8 w-8 cursor-pointer text-xl leading-none"
+								onClick={(event) => {
+									event.stopPropagation();
+									setOpenSlug(null);
+								}}
+								className="absolute top-4 right-4 h-10 w-10 cursor-pointer text-3xl leading-none"
 							>
 								×
 							</button>
