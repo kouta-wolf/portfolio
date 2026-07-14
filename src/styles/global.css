@@ -12,12 +12,6 @@
 }
 
 @layer utilities {
-    .bg-texture {
-        background-image: var(--bg-texture);
-        background-size: cover;
-        background-position: center;
-    }
-
     .paper {
         background-image: url("../assets/paper-bg.jpg");
         background-size: cover;
