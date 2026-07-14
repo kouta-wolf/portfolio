@@ -7,10 +7,27 @@ import BookCard from './BookCard.astro';
 	<Fragment slot="page1">
 		<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第一章 プロフィール</h2>
 		<p class="mt-4">
-			訪問看護を含む看護師として現場に立っていました。ある時、業務で使っていたツールがどうにも使いづらく、見よう見まねでExcelの効率化シートを自作して現場に配っていたのですが、今思えばそれが自分にとって最初の「エンジニアリング」だったのかもしれません。
+			六角形[Hex]に6つの願いを込めて
 		</p>
-		<p class="mt-4">
-			その後、働き方について考え直す出来事があり、思い切って未経験からプログラミングの学習を始めました。
+		<dl class="mt-6 grid grid-cols-3 gap-2 md:gap-3">
+			{
+				[
+					{ ja: '創造', en: 'Creativity' },
+					{ ja: '探求', en: 'Exploration' },
+					{ ja: '誠実', en: 'Integrity' },
+					{ ja: '俊敏', en: 'Agility' },
+					{ ja: '共感', en: 'Empathy' },
+					{ ja: '開放', en: 'Openness' },
+				].map(({ ja, en }) => (
+					<div class="rounded border border-accent/50 px-2 py-3 text-center">
+						<dt class="font-heading text-lg font-bold md:text-xl">{ja}</dt>
+						<dd class="mt-1 text-[10px] tracking-[0.15em] text-accent uppercase">{en}</dd>
+					</div>
+				))
+			}
+		</dl>
+		<p class="mt-12">
+			ここではサイト作者の創作物やスキルをまとめています。あなたに私という人物を知ってほしいという願いを込めました。ページをめくって知ってください。
 		</p>
 	</Fragment>
 	<Fragment slot="page2">
@@ -18,10 +35,10 @@ import BookCard from './BookCard.astro';
 			&nbsp;
 		</h2>
 		<p class="mt-4">
-			中学生の頃から自作PCでずっと遊んできた人間なので、机に向かって長時間手を動かすこと自体はまったく苦になりません(むしろ得意分野です)。
+			中学生の頃からPCで遊びながら、TRPGのオンラインセッションサーバーを立てたり、ホームページやブログ、動画を作ったりと、誰かに頼まれればパソコンで何とかできないかと手を動かしてきました。
 		</p>
 		<p class="mt-4">
-			現場で感じていた「なんとかしたい」という気持ちを、今はものづくりを通してエンジニアとして形にしていきたいと思っています。
+			看護の現場でも、自分用に作ったExcelの申し送りテンプレートが同僚の間で自然と広まった経験があります。仕組みを作れば現場は変わるかもしれないという手応えが、ものづくりを通してエンジニアとして人の役に立ちたいという今の原動力です。
 		</p>
 		<p class="mt-8 text-center text-sm text-accent">現場から、ものづくりへ。</p>
 	</Fragment>
