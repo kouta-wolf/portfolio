@@ -9,6 +9,7 @@
     --color-paper-text: oklch(0.24 0.02 50); /* 本文用の濃色文字 (紙背景上で使用) */
 
     --font-heading: "Zen Old Mincho", serif;
+    --font-gothic: "Zen Kaku Gothic New", sans-serif;
 }
 
 @layer utilities {
@@ -22,6 +23,25 @@
 
     .font-heading {
         font-family: var(--font-heading);
+    }
+
+    .font-gothic {
+        font-family: var(--font-gothic);
+    }
+
+    .text-shine {
+        background-image: linear-gradient(
+            100deg,
+            oklch(0.88 0.005 264) 0%,
+            oklch(1 0 0) 48%,
+            oklch(0.88 0.005 264) 55%,
+            oklch(1 0 0) 100%
+        );
+        background-clip: text;
+        color: transparent;
+        text-shadow:
+            0 0 4px oklch(1 0 0 / 0.25),
+            0 0 10px oklch(0.78 0.09 220 / 0.15);
     }
 
     .chapter-slide {
