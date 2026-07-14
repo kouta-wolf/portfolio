@@ -13,9 +13,10 @@ const { chapterId, decorationSrc } = Astro.props;
 >
 	<div class="paper relative h-full w-full max-w-6xl overflow-hidden rounded-lg shadow-2xl">
 		<div
-			class="pointer-events-none absolute inset-y-0 left-1/2 hidden w-6 -translate-x-1/2 bg-gradient-to-r from-black/15 via-black/25 to-black/15 blur-sm md:block"
+			class="pointer-events-none absolute inset-y-0 left-1/2 hidden w-6 -translate-x-1/2 bg-linear-to-r from-black/15 via-black/25 to-black/15 blur-sm md:block"
 		>
 		</div>
+		<div class="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-black/20 md:block"></div>
 		{
 			decorationSrc && (
 				<img
@@ -25,8 +26,32 @@ const { chapterId, decorationSrc } = Astro.props;
 				/>
 			)
 		}
-		<div class="h-full w-full overflow-hidden p-8 leading-loose md:columns-2 md:gap-12 md:px-16 md:py-12">
-			<slot />
+		<div class="spread-row h-full" data-book-spread>
+			<div class="spread-page h-full overflow-hidden p-8 leading-loose md:px-16 md:py-12">
+				<slot name="page1" />
+			</div>
+			<div class="spread-page h-full overflow-hidden p-8 leading-loose md:px-16 md:py-12">
+				<slot name="page2" />
+			</div>
 		</div>
 	</div>
 </section>
+
+<script>
+	import { $activeChapterId, $innerIndex, setChapterPageCount } from '../stores/book';
+
+	document.querySelectorAll<HTMLElement>('[data-book-spread]').forEach((row) => {
+		const chapterId = row.closest<HTMLElement>('[data-chapter]')?.dataset.chapter;
+		if (!chapterId) return;
+
+		setChapterPageCount(chapterId, 2);
+
+		const update = () => {
+			if ($activeChapterId.get() !== chapterId) return;
+			row.style.setProperty('--page-offset', String($innerIndex.get()));
+		};
+
+		$activeChapterId.subscribe(update);
+		$innerIndex.subscribe(update);
+	});
+</script>

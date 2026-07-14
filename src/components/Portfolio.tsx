@@ -33,7 +33,8 @@ const chunkGroups = <T,>(items: T[], size: number): T[][] => {
 
 export const Portfolio = ({ projects }: Props) => {
 	const [openSlug, setOpenSlug] = useState<string | null>(null);
-	const spreads = chunkGroups(projects, 4);
+	const pageGroups = chunkGroups(projects, 2); // 1ページ(モバイル画面1枚分) = 最大2作品
+	const spreads = chunkGroups(pageGroups, 2); // 1見開き(page1+page2) = 最大2ページ = 最大4作品
 	const selected = projects.find((project) => project.slug === openSlug);
 
 	const activeChapterId = useStore($activeChapterId);
@@ -41,8 +42,8 @@ export const Portfolio = ({ projects }: Props) => {
 	const rowRef = useRef<HTMLDivElement>(null);
 
 	useEffect(() => {
-		setChapterPageCount('portfolio', spreads.length);
-	}, [spreads.length]);
+		setChapterPageCount('portfolio', pageGroups.length);
+	}, [pageGroups.length]);
 
 	useEffect(() => {
 		document.body.dataset.modalOpen = selected ? 'true' : 'false';
@@ -51,19 +52,21 @@ export const Portfolio = ({ projects }: Props) => {
 		};
 	}, [selected]);
 
-	const pageIndex = activeChapterId === 'portfolio' ? Math.min(innerIndex, spreads.length - 1) : 0;
+	const clampedInnerIndex = activeChapterId === 'portfolio' ? Math.min(innerIndex, pageGroups.length - 1) : 0;
+	const spreadIndex = Math.min(Math.floor(clampedInnerIndex / 2), spreads.length - 1);
+	const pageOffset = clampedInnerIndex % 2;
 
 	useEffect(() => {
 		const row = rowRef.current;
 		if (!row) return;
 		const applyTransform = () => {
 			const pageWidth = row.clientWidth;
-			row.style.transform = `translateX(-${pageIndex * pageWidth}px)`;
+			row.style.transform = `translateX(-${spreadIndex * pageWidth}px)`;
 		};
 		applyTransform();
 		window.addEventListener('resize', applyTransform);
 		return () => window.removeEventListener('resize', applyTransform);
-	}, [pageIndex]);
+	}, [spreadIndex]);
 
 	return (
 		<section
@@ -74,37 +77,54 @@ export const Portfolio = ({ projects }: Props) => {
 			<div ref={rowRef} className="flex h-full w-full max-w-6xl transition-transform duration-400 ease-in-out">
 				{spreads.map((spread, index) => (
 					<div
-						key={spread.map((project) => project.slug).join('-')}
+						key={spread.map((page) => page.map((project) => project.slug).join('+')).join('-')}
 						className="paper relative h-full w-full shrink-0 overflow-hidden rounded-lg shadow-2xl"
 					>
-						<div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-6 -translate-x-1/2 bg-gradient-to-r from-black/15 via-black/25 to-black/15 blur-sm md:block" />
-						<div className="flex h-full w-full flex-col overflow-hidden p-8 md:px-16 md:py-8">
-							{index === 0 && (
-								<h2 className="font-heading text-3xl font-bold border-b-2 border-accent pb-1 mb-4 inline-block self-start">
-									第二章 作品集
-								</h2>
-							)}
-							<div className="grid flex-1 grid-cols-1 gap-x-12 gap-y-4 overflow-hidden md:grid-cols-2">
-								{[spread.slice(0, 2), spread.slice(2, 4)].map((column, columnIndex) => (
-									<div key={columnIndex} className="flex flex-col gap-4">
-										{column.map((project) => (
-											<button
-												key={project.slug}
-												type="button"
-												onClick={() => setOpenSlug(project.slug)}
-												className="block w-full rounded-lg p-2 text-left shadow-md transition hover:shadow-lg"
+						<div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-6 -translate-x-1/2 bg-linear-to-r from-black/15 via-black/25 to-black/15 blur-sm md:block" />
+						<div className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px -translate-x-1/2 bg-black/20 md:block" />
+						<div
+							className="spread-row h-full"
+							style={{ '--page-offset': index === spreadIndex ? pageOffset : 0 } as React.CSSProperties}
+						>
+							{[0, 1].map((pageSlot) => {
+								const page = spread[pageSlot] ?? [];
+								return (
+									<div
+										key={pageSlot}
+										className="spread-page flex h-full flex-col overflow-hidden p-8 md:px-16 md:py-8"
+									>
+										{index === 0 && pageSlot === 0 ? (
+											<h2 className="font-heading text-3xl font-bold border-b-2 border-accent pb-1 mb-4">
+												第二章 作品集
+											</h2>
+										) : (
+											<h2
+												className="font-heading text-3xl font-bold border-b-2 border-accent pb-1 mb-4 text-transparent select-none"
+												aria-hidden="true"
 											>
-												<img
-													src={project.imageSrc ?? noImageFallback.src}
-													alt={project.title}
-													className="rounded w-full h-32 object-cover mb-2 md:h-36"
-												/>
-												<h3 className="text-lg font-bold">{project.title}</h3>
-											</button>
-										))}
+												&nbsp;
+											</h2>
+										)}
+										<div className="flex flex-1 flex-col justify-center gap-4">
+											{page.map((project) => (
+												<button
+													key={project.slug}
+													type="button"
+													onClick={() => setOpenSlug(project.slug)}
+													className="mx-auto block w-full max-w-sm rounded-lg p-2 text-left shadow-md transition hover:shadow-lg hover:cursor-pointer"
+												>
+													<img
+														src={project.imageSrc ?? noImageFallback.src}
+														alt={project.title}
+														className="rounded w-full aspect-5/2 object-cover mb-2"
+													/>
+													<h3 className="text-lg font-bold">{project.title}</h3>
+												</button>
+											))}
+										</div>
 									</div>
-								))}
-							</div>
+								);
+							})}
 						</div>
 					</div>
 				))}
@@ -114,7 +134,10 @@ export const Portfolio = ({ projects }: Props) => {
 				createPortal(
 					<div
 						className="fixed inset-0 z-50 flex items-center justify-center bg-bg/80 p-4 animate-in fade-in duration-200"
-						onClick={() => setOpenSlug(null)}
+						onClick={(event) => {
+							event.stopPropagation();
+							setOpenSlug(null);
+						}}
 					>
 						<div
 							className="paper relative max-w-2xl w-full max-h-[80vh] overflow-y-auto rounded-lg shadow-xl p-8 text-left animate-in fade-in zoom-in-95 duration-300"
@@ -123,8 +146,11 @@ export const Portfolio = ({ projects }: Props) => {
 							<button
 								type="button"
 								aria-label="閉じる"
-								onClick={() => setOpenSlug(null)}
-								className="absolute top-4 right-4 h-8 w-8 cursor-pointer text-xl leading-none"
+								onClick={(event) => {
+									event.stopPropagation();
+									setOpenSlug(null);
+								}}
+								className="absolute top-4 right-4 h-10 w-10 cursor-pointer text-3xl leading-none"
 							>
 								×
 							</button>

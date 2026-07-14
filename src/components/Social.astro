@@ -1,28 +1,65 @@
 ---
+import { siGithub, siX, siZenn } from 'simple-icons';
 import BookCard from './BookCard.astro';
 
 const links = [
-	{ label: 'GitHub', href: 'https://github.com/kouta-wolf' },
-	{ label: 'X', href: 'https://x.com/o_kami_code' },
-	{ label: 'Zenn', href: 'https://zenn.dev/ookami_dev' },
+	{ label: 'GitHub', href: 'https://github.com/kouta-wolf', icon: siGithub },
+	{ label: 'X', href: 'https://x.com/o_kami_code', icon: siX },
+	{ label: 'Zenn', href: 'https://zenn.dev/ookami_dev', icon: siZenn },
 ];
 ---
 
 <BookCard chapterId="social">
-	<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第三章 連絡先</h2>
-	<p class="mt-4">現場から飛び出して、今はコードで人とつながっています。お気軽にどうぞ。</p>
-	<div class="mt-8 flex flex-col gap-4">
-		{
-			links.map((link) => (
-				<a
-					href={link.href}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bg-accent text-bg rounded px-4 py-2 text-center transition hover:opacity-90"
-				>
-					{link.label}
-				</a>
-			))
-		}
-	</div>
+	<Fragment slot="page1">
+		<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第三章 連絡先</h2>
+		<p class="mt-4">現場から飛び出して、今はコードで人とつながっています。お気軽にどうぞ。</p>
+		<div class="mt-8 flex flex-col gap-4">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="border-accent/50 text-paper-text flex items-center gap-3 rounded border px-4 py-2 transition hover:border-accent hover:bg-accent/10"
+					>
+						<svg viewBox="0 0 24 24" class="text-accent h-5 w-5 shrink-0" fill="currentColor" aria-hidden="true">
+							<path d={link.icon.path} />
+						</svg>
+						<span>{link.label}</span>
+					</a>
+				))
+			}
+		</div>
+	</Fragment>
+	<Fragment slot="page2">
+		<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1 text-transparent select-none" aria-hidden="true">
+			&nbsp;
+		</h2>
+		<form class="mt-4 flex h-full flex-col gap-4">
+			<div class="flex flex-col gap-1">
+				<label for="contact-email" class="text-sm text-accent">メールアドレス</label>
+				<input
+					id="contact-email"
+					type="email"
+					placeholder="you@example.com"
+					class="border-accent/40 bg-bg/50 rounded border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-accent"
+				/>
+			</div>
+			<div class="flex flex-col gap-1">
+				<label for="contact-message" class="text-sm text-accent">内容</label>
+				<textarea
+					id="contact-message"
+					rows="4"
+					placeholder="お問い合わせはまだできません"
+					class="border-accent/40 bg-bg/50 resize-none rounded border px-3 py-2 focus:outline-none focus:ring-1 focus:ring-accent"
+				></textarea>
+			</div>
+			<button
+				type="submit"
+				class="border-accent/50 text-paper-text rounded border px-4 py-2 text-center transition hover:border-accent hover:bg-accent/10"
+			>
+				送信する
+			</button>
+		</form>
+	</Fragment>
 </BookCard>

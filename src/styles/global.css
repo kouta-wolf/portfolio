@@ -9,16 +9,13 @@
     --color-paper-text: oklch(0.24 0.02 50); /* 本文用の濃色文字 (紙背景上で使用) */
 
     --font-heading: "Zen Old Mincho", serif;
+    --font-gothic: "Zen Kaku Gothic New", sans-serif;
 }
 
 @layer utilities {
-    .bg-texture {
-        background-image: var(--bg-texture);
-        background-size: cover;
-        background-position: center;
-    }
-
     .paper {
+        --color-accent: oklab(64% -0.08 -0.07); /* 紙面用の濃い月光色 (視認性のため通常のaccentより暗め) */
+
         background-image: url("../assets/paper-bg.jpg");
         background-size: cover;
         background-color: var(--color-paper-bg);
@@ -30,9 +27,60 @@
         font-family: var(--font-heading);
     }
 
+    .font-gothic {
+        font-family: var(--font-gothic);
+    }
+
+    .text-shine {
+        background-image: linear-gradient(
+            100deg,
+            oklch(0.88 0.005 264) 0%,
+            oklch(1 0 0) 48%,
+            oklch(0.88 0.005 264) 55%,
+            oklch(1 0 0) 100%
+        );
+        background-clip: text;
+        color: transparent;
+        text-shadow:
+            0 0 4px oklch(1 0 0 / 0.25),
+            0 0 10px oklch(0.78 0.09 220 / 0.15);
+    }
+
+    .text-outline {
+        text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
+    }
+
     .chapter-slide {
         flex: 0 0 100%;
         width: 100vw;
         height: 100dvh;
+    }
+
+    .spread-row {
+        display: flex;
+        width: 200%;
+        transform: translateX(calc(var(--page-offset, 0) * -50%));
+        transition: transform 400ms ease-in-out;
+    }
+
+    .spread-page {
+        width: 50%;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+        .spread-row {
+            width: 100%;
+            transform: none !important;
+        }
+
+        .spread-page {
+            width: 50%;
+        }
     }
 }

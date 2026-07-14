@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '@fontsource/zen-old-mincho/400.css';
 import '@fontsource/zen-old-mincho/700.css';
+import '@fontsource/zen-kaku-gothic-new/900.css';
 import PageTurnHint from '../components/PageTurnHint.astro';
 import LoadingScreen from '../components/LoadingScreen.astro';
 
@@ -47,4 +48,81 @@ const { title } = Astro.props;
 			goToChapter(el.dataset.chapterLink as string);
 		});
 	});
+
+	// クリックでのページ送り(電子書籍風): 画面左端30%=前へ, 右端30%=次へ, 中央は無視
+	const isInteractiveTarget = (target: EventTarget | null) =>
+		target instanceof Element && target.closest('a, button, input, label, [data-chapter-link], [data-page-nav]');
+
+	document.addEventListener('click', (event) => {
+		if (document.body.dataset.modalOpen === 'true') return;
+		if (isInteractiveTarget(event.target)) return;
+
+		const ratio = event.clientX / window.innerWidth;
+		if (ratio < 0.3) {
+			goPrev();
+		} else if (ratio > 0.7) {
+			goNext();
+		}
+	});
+
+	// スワイプでのページ送り(スマホ): 上下スクロールで次/前へ
+	let touchStartX = 0;
+	let touchStartY = 0;
+
+	document.addEventListener(
+		'touchstart',
+		(event) => {
+			if (document.body.dataset.modalOpen === 'true') return;
+			const touch = event.touches[0];
+			touchStartX = touch.clientX;
+			touchStartY = touch.clientY;
+		},
+		{ passive: true },
+	);
+
+	document.addEventListener(
+		'touchend',
+		(event) => {
+			if (document.body.dataset.modalOpen === 'true') return;
+			const touch = event.changedTouches[0];
+			const deltaX = touch.clientX - touchStartX;
+			const deltaY = touch.clientY - touchStartY;
+
+			const SWIPE_THRESHOLD = 50;
+			if (Math.abs(deltaY) < SWIPE_THRESHOLD || Math.abs(deltaY) < Math.abs(deltaX)) return;
+
+			if (deltaY < 0) {
+				goNext();
+			} else {
+				goPrev();
+			}
+		},
+		{ passive: true },
+	);
+
+	// PCのスクロールでのページ送り: 縦ホイールで次/前へ(トラックパッドの連続発火はクールダウンで1回に間引く)
+	const WHEEL_THRESHOLD = 12;
+	const WHEEL_COOLDOWN_MS = 600;
+	let wheelLocked = false;
+
+	document.addEventListener(
+		'wheel',
+		(event) => {
+			if (document.body.dataset.modalOpen === 'true') return;
+			if (wheelLocked) return;
+			if (Math.abs(event.deltaY) < WHEEL_THRESHOLD || Math.abs(event.deltaY) < Math.abs(event.deltaX)) return;
+
+			wheelLocked = true;
+			setTimeout(() => {
+				wheelLocked = false;
+			}, WHEEL_COOLDOWN_MS);
+
+			if (event.deltaY > 0) {
+				goNext();
+			} else {
+				goPrev();
+			}
+		},
+		{ passive: true },
+	);
 </script>
