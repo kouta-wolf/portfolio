@@ -35,4 +35,28 @@
         width: 100vw;
         height: 100dvh;
     }
+
+    .spread-row {
+        display: flex;
+        width: 200%;
+        transform: translateX(calc(var(--page-offset, 0) * -50%));
+        transition: transform 400ms ease-in-out;
+    }
+
+    .spread-page {
+        width: 50%;
+        flex-shrink: 0;
+        overflow: hidden;
+    }
+
+    @media (min-width: 768px) {
+        .spread-row {
+            width: 100%;
+            transform: none !important;
+        }
+
+        .spread-page {
+            width: 50%;
+        }
+    }
 }

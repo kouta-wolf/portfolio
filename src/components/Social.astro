@@ -9,20 +9,24 @@ const links = [
 ---
 
 <BookCard chapterId="social">
-	<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第三章 連絡先</h2>
-	<p class="mt-4">現場から飛び出して、今はコードで人とつながっています。お気軽にどうぞ。</p>
-	<div class="mt-8 flex flex-col gap-4">
-		{
-			links.map((link) => (
-				<a
-					href={link.href}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bg-accent text-bg rounded px-4 py-2 text-center transition hover:opacity-90"
-				>
-					{link.label}
-				</a>
-			))
-		}
-	</div>
+	<Fragment slot="page1">
+		<h2 class="font-heading text-3xl font-bold border-b-2 border-accent pb-1">第三章 連絡先</h2>
+		<p class="mt-4">現場から飛び出して、今はコードで人とつながっています。お気軽にどうぞ。</p>
+	</Fragment>
+	<Fragment slot="page2">
+		<div class="flex h-full flex-col justify-center gap-4">
+			{
+				links.map((link) => (
+					<a
+						href={link.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="bg-accent text-bg rounded px-4 py-2 text-center transition hover:opacity-90"
+					>
+						{link.label}
+					</a>
+				))
+			}
+		</div>
+	</Fragment>
 </BookCard>
